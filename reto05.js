@@ -94,11 +94,3 @@ const road = 'S..|...|..'
 const time = 10 // unidades de tiempo
 const result = cyberReindeer(road, time)
 console.log(result);
-let t = road.split("");
-let s = 0;
-let pila = ".";
-t[s] = pila;
-console.log(t)
-s++;
-t[s] = "S";
-console.log(t)
