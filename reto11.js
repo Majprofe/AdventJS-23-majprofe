@@ -20,41 +20,36 @@ Si se puede formar el palíndromo con diferentes intercambios, siempre se debe d
 */
 
 function getIndexsForPalindrome(word) {
-    const reverseWord = word.split("").reverse().join("");
-    if (reverseWord === word) return [];
-
-    let pos1, pos2;
-    let pila;
-    let palindromo = false;
-
-    for (let i = 0; i < word.length; i++) {
-        for (let k = word.length - 1; k >= 0; k--) {
-            pos1 = i;
-            pos2 = k;
-            pila = word[i];
-            word[i] = word[k];
-            word[k] = pila;
-
-            palindromo = true;
-            for (let j = 0; j < Math.floor(word.length / 2); j++) {
-                if (word[j] !== word[word.length - 1 - j]) {
-                    palindromo = false;
-                    break;
-                }
+    if (word === word.split('').reverse().join('')) return []
+  
+    const wordArray = word.split('')
+    const length = wordArray.length
+  
+    for (let i = 0; i < length; i++) {
+      for (let j = 0; j < length; j++) {
+        if (i !== j && wordArray[i] !== wordArray[j]) {
+          const temp = wordArray[i]
+          wordArray[i] = wordArray[j]
+          wordArray[j] = temp
+  
+          let isPalindrome = true
+          for (let k = 0; k < length / 2; k++) {
+            if (wordArray[k] !== wordArray[length - 1 - k]) {
+              isPalindrome = false
+              break
             }
-
-            // Restaura la palabra a su estado original antes de continuar
-            word[k] = word[i];
-            word[i] = pila;
-
-            if (palindromo) {
-                return [pos1, pos2];
-            }
+          }
+  
+          if (isPalindrome) return [i, j]
+  
+          wordArray[j] = wordArray[i]
+          wordArray[i] = temp
         }
+      }
     }
-
-    return null;
-}
+  
+    return null
+  }
 
 console.log(getIndexsForPalindrome('anna')) // []
 console.log(getIndexsForPalindrome('abab')) // [0, 1]
